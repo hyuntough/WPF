@@ -1,0 +1,60 @@
+﻿<Window x:Class="Atomus.WpfApp2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp2"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="350">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>  <!--UserID-->
+            <RowDefinition Height="Auto"/>  <!--Password-->
+            <RowDefinition Height="Auto"/>  <!--Email-->
+            <RowDefinition Height="Auto"/>  <!--Button-->
+            <RowDefinition Height="*"/>     <!--DataGrid-->
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0"
+                   TextAlignment="Right"
+                   Text="User ID : "/>
+        <TextBlock Grid.Row="1" Grid.Column="0"
+                   TextAlignment="Right"
+                   Text="Password : "/>
+        <TextBlock Grid.Row="2" Grid.Column="0"
+                   TextAlignment="Right"
+                   Text="Email : "/>
+        
+        <TextBox Grid.Row="0" Grid.Column="1" Width="100" Margin="5"
+                 IsEnabled="{Binding IsEnablecontrol}"
+                 Text="{Binding SelectedItem.UserID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Width="100" Margin="5"
+                 Text="{Binding SelectedItem.Password}"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Width="100" Margin="5"
+                 Text="{Binding SelectedItem.Email}"/>
+
+        <Button Grid.Row="3" Grid.Column="0"  Margin="5"
+                Content="Init"
+                Command="{Binding InitCommand}"/>
+        
+        <Button Grid.Row="3" Grid.Column="1"  Margin="5"
+                Content="Save"
+                Command="{Binding SaveCommand}"/>
+
+        <DataGrid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
+                  ItemsSource="{Binding UserList}"
+                  SelectedItem="{Binding SelectedItem}"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding UserID}" Header="사용자ID" Width="100"/>
+                <DataGridTextColumn Binding="{Binding Password}" Header="패스워드" Width="100"/>
+                <DataGridTextColumn Binding="{Binding Email}" Header="이메일" Width="100"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
